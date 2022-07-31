@@ -14,7 +14,9 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-image: url('../public/wp10395011-dark-library-wallpapers.jpg');
+  background-repeat: no-repeat; 
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
