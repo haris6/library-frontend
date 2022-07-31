@@ -58,8 +58,8 @@ export default function StudentsList() {
               </TableHead>
               <TableBody >
                 {rows.map((row) => {
-                    return (
-                      <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={()=>{console.log('click event here')}}>
+                  return (
+                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={(row)=>{window.location.href="/viewstudent"+row}}>
                         {columns.map((column) => {
                           const value = row[column.id];
                           return (
@@ -71,8 +71,8 @@ export default function StudentsList() {
                           );
                         })}
                       </TableRow>
-                    );
-                  })}
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>
