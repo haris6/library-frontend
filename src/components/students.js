@@ -1,45 +1,40 @@
 import * as React from 'react';
+import { useState,useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import '../App.css';
 import axios from 'axios';
 
 const columns = [
+  { id: 'id', label: 'No.', maxWidth: 50 },
   { id: 'fname', label: 'First Name', minWidth: 100 },
   { id: 'lname', label: 'Last Name', minWidth: 100 },
-  
 ];
 
-function createData(fname, lname) {
-  return { fname, lname };
+function createData(id,fname, lname) {
+  return { id,fname, lname };
 }
 
-const rows = [
-  createData('Ahsan', 'Amin Khan'),
-  createData('Bilawal', 'Imdad'),
-  createData('Haris', 'Akram'),
-];
-
-//const data = axios.get('https://localhost:4000')
-
 export default function StudentsList() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rows,setRows] = useState([]);
+  var data = []
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  useEffect(()=>{
+    axios.get('http://localhost:4000/students/getstudents').then((response)=>{
+      var res = response.data;
+      for(var i = 0; i < res.length ; i++){
+        const obj = res[i];
+        data.push(createData(obj.id,obj.first_name,obj.last_name));
+      }      
+      setRows(data);
+    });
+  });
+  
 
   return (
     <div>
@@ -54,17 +49,15 @@ export default function StudentsList() {
                     <TableCell
                       key={column.id}
                       align='center'
-                      style={{ minWidth: column.minWidth , fontSize:22, fontWeight:'bold', backgroundColor:'rgba(220,8,8,0.6)',color:'white'  }}
+                      style={{ minWidth: column.minWidth ,maxWidth:column.maxWidth, fontSize:22, fontWeight:'bold', backgroundColor:'rgba(158,6,4)',color:'white'  }}
                     >
                       {column.label}
                     </TableCell>
                   ))}
                 </TableRow>
               </TableHead>
-              <TableBody sx={{backgroundColor:''}}>
-                {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
+              <TableBody >
+                {rows.map((row) => {
                     return (
                       <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={()=>{console.log('click event here')}}>
                         {columns.map((column) => {
@@ -83,16 +76,6 @@ export default function StudentsList() {
               </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination
-            sx={{color:'white'}}
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
         </Paper>
      </header>
     </div>
