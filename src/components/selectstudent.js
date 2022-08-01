@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import '../App.css';
 import axios from 'axios';
+var parseUrl = require('parse-url');
 
 const columns = [
   { id: 'index', label: 'No.', maxWidth: 50 },
@@ -20,8 +21,10 @@ function createData(index,fname, lname,id) {
   return { index,fname,lname,id };
 }
 
-export default function StudentsList() {
+export default function SelectStudent() {
   const [rows,setRows] = useState([]);
+  const url = parseUrl(window.location.href);
+  const book = url.query.book;
 
   useEffect(()=>{
     var data = []
@@ -59,7 +62,7 @@ export default function StudentsList() {
               <TableBody >
                 {rows.map((row) => {
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={()=>{window.location.href="/student_detail?id="+row.id+"&fname="+row.fname+"&lname="+row.lname}}>
+                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={()=>{window.location.href="/set_return_date?book="+book+"&student="+row.id}}>
                       {columns.map((column) => {
                         const value = row[column.id];
                         return (
