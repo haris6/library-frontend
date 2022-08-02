@@ -7,6 +7,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { Button } from '@mui/material';
 import '../App.css';
 import axios from 'axios';
 
@@ -58,6 +59,7 @@ export default function BooksList() {
       setRows(data);          
     });
   },[]);
+
   
   return (
     <div>
@@ -100,6 +102,21 @@ export default function BooksList() {
             </Table>
           </TableContainer>
         </Paper>
+        <Button 
+          variant="outlined" 
+          style={{
+              color:'white',
+              fontSize:20,
+              width:300,
+              backgroundColor:'rgba(158,6,4,0.8)', 
+              borderColor:'white',
+              borderWidth:1,
+              marginTop:50
+          }}
+          onClick={()=>{window.location.href="/"}}
+      >
+          Back To Home
+      </Button>
      </header>
     </div>
   );

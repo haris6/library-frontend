@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import '../App.css';
 import axios from 'axios';
+import { Button } from '@mui/material';
 
 const columns = [
   { id: 'index', label: 'No.', maxWidth: 50 },
@@ -77,6 +78,21 @@ export default function StudentsList() {
             </Table>
           </TableContainer>
         </Paper>
+        <Button 
+          variant="outlined" 
+          style={{
+              color:'white',
+              fontSize:20,
+              width:300,
+              backgroundColor:'rgba(158,6,4,0.8)', 
+              borderColor:'white',
+              borderWidth:1,
+              marginTop:50
+          }}
+          onClick={()=>{window.location.href="/"}}
+      >
+          Back To Home
+      </Button>
      </header>
     </div>
   );

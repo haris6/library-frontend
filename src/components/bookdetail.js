@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState,useEffect } from 'react';
+import { useState} from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -7,13 +7,13 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { Button } from '@mui/material';
-import axios from 'axios';
 const parseUrl = require('parse-url');
 
 
 export default function BookDetail() {
   const url = parseUrl(window.location.href);
   const book = url.query;
+  console.log(book)
   const [expanded, setExpanded] = useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -62,17 +62,32 @@ export default function BookDetail() {
             padding:10, 
             color:'white',
             fontSize:15,width:150,
-            backgroundColor:'rgba(220,8,8,0.65)', 
+            backgroundColor:'rgba(158,6,4,0.8)', 
             borderColor:'white',
-            borderWidth:2
+            borderWidth:1
         }}
-            onClick={()=>{window.location.href="/select_student?book"+book.id}}
+            onClick={()=>{window.location.href="/select_student?book="+book.id+"&bname="+book.name}}
         >
             Borrow
         </Button>
         :
         <></>}
       </div>
+      <Button 
+          variant="outlined" 
+          style={{
+              color:'white',
+              fontSize:20,
+              width:300,
+              backgroundColor:'rgba(158,6,4,0.8)', 
+              borderColor:'white',
+              borderWidth:1,
+              marginTop:50
+          }}
+          onClick={()=>{window.location.href="/"}}
+      >
+          Back To Home
+      </Button>
       </header>
     </div>
   );

@@ -36,12 +36,13 @@ export default function StudentDetail() {
       var res = response.data;     
       setBooks(res);
     });
-  },[]);
+  },[id]);
   
   function returnBook(id){
     axios.put('http://localhost:4000/students/returnbook',{id:id}).then((response)=>{
-        console.log(response.data);
-        window.location.reload();
+        setTimeout(()=>{
+          window.location.reload();
+        },1500)
     })
   }
 
@@ -95,13 +96,13 @@ export default function StudentDetail() {
                                     borderColor:'white',
                                     borderWidth:2
                                 }}
-                                onClick={()=>{returnBook(book.id)}}
+                                onClick={()=>{handleClick();returnBook(book.id)}}
                             >
                                 <CloseIcon/>
                             </Button>
                             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                                    This is a success message!
+                                <Alert onClose={handleClose} severity="success" sx={{ width: '100%',backgroundColor:'rgba(158,6,4,0.8)' }}>
+                                    Book Returned Successfully
                                 </Alert>
                             </Snackbar>
                         </div>
@@ -110,6 +111,21 @@ export default function StudentDetail() {
             </div>
         </AccordionDetails>
       </Accordion>
+      <Button 
+          variant="outlined" 
+          style={{
+              color:'white',
+              fontSize:20,
+              width:300,
+              backgroundColor:'rgba(158,6,4,0.8)', 
+              borderColor:'white',
+              borderWidth:1,
+              marginTop:50
+          }}
+          onClick={()=>{window.location.href="/"}}
+      >
+          Back To Home
+      </Button>
       </header>
     </div>
   );
